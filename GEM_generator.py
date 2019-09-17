@@ -38,31 +38,33 @@ if(M > 1):
 else:
 	M_variables = "M"
 	
-print("\n", "Below are your interacting variables:", "\n")
+print("\n", "Below are the interacting variables that will be in your model:", "\n")
 print("Genotype: ", G_variables)
 print("Environment: ", E_variables)
-print("Microbiome : ", M_variables)
+print("Microbiome : ", M_variables, "\n")
 
-print("\n\n", input("Press ENTER to view your model."), "\n")
-# 
-
-# print(type(M_variables))
-# All the variables must be in a list form in order to work in the combinations function
-
+# Add all variables into a single list
 all_variables = list(G_variables) + list(E_variables) + list(M_variables)
 
-# print(type(all_variables))
+# Create the output name
+output_name = '_'.join(all_variables) + ".txt"
 
-# print(M_variables.split(M_variables,-1))
+print("Your output is found in the following file : ", output_name, "\n")
 
 from itertools import combinations 
   
 # Get all combinations of [G, E, M] 
-
 for i in range(1,len(all_variables)+1):
 	comb = combinations(all_variables, i)
 # Print the obtained combinations 
-	for i in list(comb): 
-		print(i) 
+	if i < len(all_variables):
+		for j in list(comb): 
+			print((''.join(j)), end = " + ", file=open(output_name, "a"))
+		print("\n", end = "", file=open(output_name, "a"))
+	else:
+		for j in list(comb): 
+			print((''.join(j)), end = " \n ", file=open(output_name, "a"))
+
+print("\n", file=open(output_name, "a"))
 
 
