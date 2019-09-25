@@ -3,25 +3,28 @@
 print("\n", "\t", "Welcome!", "\n")
 
 print("The GEM model has up to three types of interacting variables.")
-print("These variables include genotype 'G', environment 'E', and the microbiome 'M'")
+print("These variables include genotype 'G', environment 'E', and microbiome 'M'")
 print("The model may be expanded to include any number of interactions")
 print("To generate your own GEM model, please follow the prompts below","\n")
 
 # input("Press Enter to continue...")
+num_variables = None
 
-# How many (interacting) Genotype treatments (this could be used for intercropping )
-G = input("Enter the number of interacting genotypes: ")
-
-# How many (interacting) Environment treatments
-E = input("\nEnter the number of interacting environments: ")
-
-# How many (interacting) Microbiom treatments
-M = input("\nEnter the number of interacting microbiomes: ")
-
-G = int(G)
-E = int(E)
-M = int(M)
-
+if num_variables is None:
+ print("\nWarning: Please limit the model to 10 or less total variables")
+ G = int(input("\nEnter the number of interacting genotypes: "))
+ E = int(input("\nEnter the number of interacting environments: "))
+ M = int(input("\nEnter the number of interacting microbiomes: "))
+ num_variables = G + E + M
+while num_variables > 10:
+ print("\nWarning: You have entered ",num_variables," variables.")
+ print("A model with this many variables would have",2**num_variables,"terms.")
+ print("Please limit the model to 10 or less total variables")
+ G = int(input("\nEnter the number of interacting genotypes: "))
+ E = int(input("\nEnter the number of interacting environments: "))
+ M = int(input("\nEnter the number of interacting microbiomes: "))
+ num_variables = G + E + M
+ 
 # First enter the number of 
 if(G > 1):
 	G_variables = ["G" + str(i) for i in range(1,(G+1))]
@@ -42,6 +45,7 @@ print("\n", "Below are the interacting variables that will be in your model:", "
 print("Genotype: ", G_variables)
 print("Environment: ", E_variables)
 print("Microbiome : ", M_variables, "\n")
+print("In total:", 2**num_variables, "terms are in your model\n")
 
 # Add all variables into a single list
 all_variables = list(G_variables) + list(E_variables) + list(M_variables)
