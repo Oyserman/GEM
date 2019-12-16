@@ -9,6 +9,6 @@ Python3
 
 `cd GEM`
 
-`python3 GEM.py`
+`python3 GEM_generator.py`
 
 Then follow the prompts to build your tailored model.
