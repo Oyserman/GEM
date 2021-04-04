@@ -18,38 +18,54 @@ if num_variables is None:
  num_variables = G + E + M
 while num_variables > 10:
  print("\nWarning: You have entered ",num_variables," variables.")
- print("A model with this many variables would have",2**num_variables,"terms.")
+ print("A model with this many variables would have",(2**num_variables)-1,"terms.")
  print("Please limit the model to 10 or less total variables")
  G = int(input("\nEnter the number of interacting genotypes: "))
  E = int(input("\nEnter the number of interacting environments: "))
  M = int(input("\nEnter the number of interacting microbiomes: "))
  num_variables = G + E + M
- 
+
+all_variables = []
 # First enter the number of 
 if(G > 1):
 	G_variables = ["G" + str(i) for i in range(1,(G+1))]
-else:
+	all_variables.extend(G_variables)
+elif (G == 1):
 	G_variables = "G"
+	all_variables.extend(G_variables)
+else:
+	G_variables = None
 
 if(E > 1):
 	E_variables = ["E" + str(i) for i in range(1,(E+1))]
-else:
+	all_variables.extend(E_variables)
+elif (E == 1):
 	E_variables = "E"
+	all_variables.extend(E_variables)
+else:
+	E_variables = None
 
 if(M > 1):
 	M_variables = ["M" + str(i) for i in range(1,(M+1))]
-else:
+	all_variables.extend(M_variables)	
+elif (M == 1):
 	M_variables = "M"
-	
+	all_variables.extend(M_variables)
+else:
+	M_variables = None
+		
+
 print("\n", "Below are the interacting variables that will be in your model:", "\n")
 print("Genotype: ", G_variables)
 print("Environment: ", E_variables)
 print("Microbiome : ", M_variables, "\n")
-print("In total:", 2**num_variables, "terms are in your model\n")
+print("In total:", (2**num_variables)-1, "terms are in your model\n")
 
 # Add all variables into a single list
-all_variables = list(G_variables) + list(E_variables) + list(M_variables)
 
+all_variables = list(all_variables)
+
+print(all_variables)
 # Create the output name
 output_name = '_'.join(all_variables) + ".txt"
 
